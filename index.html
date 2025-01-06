@@ -10,19 +10,26 @@
             min-height: 100vh;
             margin: 0;
         }
+        .grid-container {
+            width: min(100vh, 100vw, 800px);
+            aspect-ratio: 1;
+        }
         .grid {
             display: grid;
-            gap: 5px;
+            width: 100%;
+            height: 100%;
+            gap: 2px;
         }
         .cell {
-            width: 50px;
-            height: 50px;
+            aspect-ratio: 1;
             border: 1px solid #ccc;
         }
     </style>
 </head>
 <body>
-    <div class="grid" id="colorGrid"></div>
+    <div class="grid-container">
+        <div class="grid" id="colorGrid"></div>
+    </div>
     <script>
         const colorMap = {
             '0': 'white',
@@ -40,7 +47,7 @@
         const [rows, cols] = (params.get('x')?.split(',') || [8,8]).map(Number);
         const colors = params.get('c')?.split('') || [];
         
-        grid.style.gridTemplateColumns = `repeat(${cols}, 50px)`;
+        grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
         
         for (let i = 0; i < rows * cols; i++) {
             const cell = document.createElement('div');
