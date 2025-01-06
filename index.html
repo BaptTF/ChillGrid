@@ -12,7 +12,6 @@
         }
         .grid {
             display: grid;
-            grid-template-columns: repeat(8, 50px);
             gap: 5px;
         }
         .cell {
@@ -38,9 +37,12 @@
         
         const grid = document.getElementById('colorGrid');
         const params = new URLSearchParams(window.location.search);
-        const colors = params.get('c')?.split(',') || [];
+        const [rows, cols] = (params.get('x')?.split(',') || [8,8]).map(Number);
+        const colors = params.get('c')?.split('') || [];
         
-        for (let i = 0; i < 64; i++) {
+        grid.style.gridTemplateColumns = `repeat(${cols}, 50px)`;
+        
+        for (let i = 0; i < rows * cols; i++) {
             const cell = document.createElement('div');
             cell.className = 'cell';
             cell.style.backgroundColor = colorMap[colors[i]] || 'white';
